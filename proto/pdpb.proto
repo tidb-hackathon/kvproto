@@ -506,10 +506,17 @@ message GetGCSafePointRequest {
     RequestHeader header = 1;
 }
 
+message RangeTTL {
+    bytes start_key = 1;
+    bytes end_key = 2;
+    uint64 ttl = 3;
+}
+
 message GetGCSafePointResponse {
     ResponseHeader header = 1;
 
     uint64 safe_point = 2;
+    repeated RangeTTL range_ttl = 3;
 }
 
 message UpdateGCSafePointRequest {
