@@ -75,6 +75,14 @@ service PD {
     rpc SyncRegions(stream SyncRegionRequest) returns (stream SyncRegionResponse) {}
 
     rpc GetOperator(GetOperatorRequest) returns (GetOperatorResponse) {}
+
+    rpc AddRangeTTL(AddRangeTTLRequest) returns (AddRangeTTLResponse) {}
+
+    rpc DeleteRangeTTL(DeleteRangeTTLRequest) returns (DeleteRangeTTLResponse) {}
+
+    rpc GetRangeTTL(GetRangeTTLRequest) returns (GetRangeTTLResponse) {}
+
+    rpc GetAllRangeTTL(GetAllRangeTTLRequest) returns (GetAllRangeTTLResponse) {}
 }
 
 message RequestHeader {
@@ -509,14 +517,15 @@ message GetGCSafePointRequest {
 message RangeTTL {
     bytes start_key = 1;
     bytes end_key = 2;
-    uint64 ttl = 3;
+    uint64 TTL = 3;
+    bytes user_data = 4;
 }
 
 message GetGCSafePointResponse {
     ResponseHeader header = 1;
 
     uint64 safe_point = 2;
-    repeated RangeTTL range_ttl = 3;
+    repeated RangeTTL range_TTL = 3;
 }
 
 message UpdateGCSafePointRequest {
@@ -593,4 +602,48 @@ message GetOperatorResponse {
     bytes desc = 3;
     OperatorStatus status = 4;
     bytes kind = 5;
+}
+
+message AddRangeTTLRequest {
+    RequestHeader header = 1;
+
+    repeated RangeTTL TTL = 3;
+}
+
+message AddRangeTTLResponse {
+    ResponseHeader header = 1;
+}
+
+message DeleteRangeTTLRequest {
+    RequestHeader header = 1;
+
+    bytes start_key = 2;
+    bytes end_key = 3;
+}
+
+message DeleteRangeTTLResponse {
+    ResponseHeader header = 1;
+}
+
+message GetRangeTTLRequest {
+    RequestHeader header = 1;
+
+    bytes start_key = 2;
+    bytes end_key = 3;
+}
+
+message GetRangeTTLResponse {
+    ResponseHeader header = 1;
+
+    RangeTTL TTL = 3;
+}
+
+message GetAllRangeTTLRequest {
+    RequestHeader header = 1;
+}
+
+message GetAllRangeTTLResponse {
+    ResponseHeader header = 1;
+
+    repeated RangeTTL TTL = 3;
 }
