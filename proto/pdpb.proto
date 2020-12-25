@@ -519,6 +519,7 @@ message RangeTTL {
     bytes end_key = 2;
     uint64 TTL = 3;
     bytes user_data = 4;
+    bool add_gc_interval = 5; // delay TTL by adding GC interval
 }
 
 message GetGCSafePointResponse {
