@@ -527,6 +527,7 @@ message GetGCSafePointResponse {
 
     uint64 safe_point = 2;
     repeated RangeTTL range_TTL = 3;
+    uint64 now = 4;
 }
 
 message UpdateGCSafePointRequest {
